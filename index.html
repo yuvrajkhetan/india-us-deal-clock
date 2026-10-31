@@ -150,6 +150,10 @@ header .asof{font:400 .82rem/1.3 var(--f-mono);color:var(--muted)}
 .steps>li>div{display:grid;gap:8px;min-width:0}
 .steps p{max-width:66ch}
 .formula{font:500 .9rem/1.7 var(--f-mono);background:var(--soft);padding:10px 12px;border-radius:8px;overflow-x:auto;white-space:nowrap}
+.ladder{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:4px 18px}
+.ladder li{display:grid;grid-template-columns:2.4rem minmax(0,1fr);gap:8px;align-items:baseline}
+.ladder b{font:600 .82rem/1.5 var(--f-mono);text-align:right}
+.mnote{margin-top:8px;color:var(--muted)}
 .tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
 table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
 th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line)}
@@ -176,6 +180,12 @@ footer{font-size:.82rem;color:var(--muted);display:grid;gap:6px;border-top:1px s
 @media (max-width:680px){
   .hero{grid-template-columns:1fr;gap:24px}
   .watch{max-width:270px;margin:0 auto;width:100%}
+  .headline{text-align:center}
+  .big small span{display:block;margin-top:4px}
+  .big .sep{display:none}
+  .odds{text-align:left}
+  .deltas{justify-content:center}
+  .midnight{margin:0 auto}
   .orow{grid-template-columns:6.4rem minmax(0,1fr) 2.8rem;gap:10px}
   .factor{grid-template-columns:minmax(0,1fr) auto}
   .factor .bar{grid-column:1/-1;grid-row:2}
@@ -189,10 +199,13 @@ footer{font-size:.82rem;color:var(--muted);display:grid;gap:6px;border-top:1px s
   .tablebox{overflow:visible}
   .tablebox table{min-width:0}
   .tablebox thead{display:none}
-  .tablebox tr{display:grid;grid-template-columns:auto auto;justify-content:start;gap:2px 10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .tablebox tr{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:6px 10px;padding:12px 14px;border-bottom:1px solid var(--line)}
   .tablebox tr:last-child{border-bottom:0}
   .tablebox td{padding:0;border:0}
-  .tablebox td:nth-child(3){grid-column:1/-1;color:var(--muted)}
+  .tablebox td:nth-child(2){color:var(--muted)}
+  .tablebox td:nth-child(2)::after{content:' weight'}
+  .tablebox td:nth-child(3){grid-column:1/-1}
+  .ladder{grid-template-columns:1fr}
 }
 </style>
 
@@ -228,7 +241,7 @@ footer{font-size:.82rem;color:var(--muted);display:grid;gap:6px;border-top:1px s
   <section aria-labelledby="timeline">
     <div class="section-head">
       <h2 id="timeline">The clock since talks began</h2>
-      <p>The estimate for every day since 13 February 2025, read against the clock on the right. Numbered points match the events below. Hover or tap the chart to read any day.</p>
+      <p>The estimate for every day since 13 February 2025, read against the clock on the right. Marked points are the events below. Hover or tap the chart to read any day or event.</p>
     </div>
     <div class="chartbox" id="chartbox"></div>
     <div class="tip" id="tip" aria-live="polite"></div>
@@ -923,7 +936,7 @@ const now = series[series.length-1];
 const mid = m.midnight.charAt(0).toLowerCase() + m.midnight.slice(1);
 const left = minsLeft(now.sc);
 document.getElementById('asof').textContent = 'Updated ' + fmt(asOf);
-document.getElementById('headline').innerHTML = left + '<small>' + (left === 1 ? 'minute' : 'minutes') + ' to midnight <span>· the clock reads ' + clockTime(now.sc) + '</span></small>';
+document.getElementById('headline').innerHTML = left + '<small>' + (left === 1 ? 'minute' : 'minutes') + ' to midnight <span><i class="sep">· </i>the clock reads ' + clockTime(now.sc) + '</span></small>';
 document.getElementById('odds').innerHTML = '<div class="eyebrow">Chance of signing</div>' + [30,60,90].map(k => {
   const p = Math.round(pWithin(now.sc, k)*100);
   return '<div class="orow"><div class="lbl">Within ' + k + ' days<span>by ' + fmtDM(asOf + k) + '</span></div><div class="otrack" role="img" aria-label="' + p + ' percent"><i style="width:' + p + '%"></i></div><b class="num">' + p + '%</b></div>';
@@ -1027,14 +1040,14 @@ function drawChart(){
   const X = d => L + (d - start)/(asOf - start)*(Wd - L - R);
   const Y = v => T + (1 - v/100)*plotH;
   /* event markers on lanes under the plot, never overlapping */
-  const rM = narrow ? 8 : 9, laneH = rM*2 + 6, lanes = [];
-  evs.forEach(e => { e.x = X(e.d); let k = 0; while (lanes[k] !== undefined && e.x - lanes[k] < rM*2 + 3) k++; lanes[k] = e.x; e.lane = k; });
-  const laneTop = T + plotH + 30, Ht = laneTop + lanes.length*laneH + 4;
+  const rM = 9, laneH = rM*2 + 6, lanes = [];
+  evs.forEach(e => { e.x = X(e.d); if (narrow) return; let k = 0; while (lanes[k] !== undefined && e.x - lanes[k] < rM*2 + 3) k++; lanes[k] = e.x; e.lane = k; });
+  const laneTop = T + plotH + 30, Ht = narrow ? T + plotH + 26 : laneTop + lanes.length*laneH + 4;
   let s = '<svg id="hist" viewBox="0 0 ' + Wd + ' ' + Ht + '" role="img" aria-label="Estimate and clock time from February 2025 to ' + fmt(asOf) + '">';
   [0,25,50,75,100].forEach(v => {
     s += '<line x1="' + L + '" x2="' + (Wd-R) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="' + (v === 100 ? 'var(--green)' : 'var(--line)') + '"' + (v === 100 ? ' stroke-dasharray="4 4"' : '') + '/>';
     s += '<text x="' + (L-6) + '" y="' + (Y(v)+3.5) + '" text-anchor="end" font-size="10">' + v + '%</text>';
-    s += '<text x="' + (Wd-R+6) + '" y="' + (Y(v)+3.5) + '" font-size="10"' + (v === 100 ? ' style="fill:var(--green)"' : '') + '>' + ({0:'11:00',25:'11:15',50:'11:30',75:'11:45',100:'midnight'})[v] + '</text>';
+    s += '<text x="' + (Wd-R+6) + '" y="' + (Y(v)+3.5) + '" font-size="10"' + (v === 100 ? ' style="fill:var(--green)"' : '') + '>' + ({0:'11:00',25:'11:15',50:'11:30',75:'11:45',100:narrow ? '12:00' : 'midnight'})[v] + '</text>';
   });
   for (let y = 2025; y <= 2027; y++) for (let mo = 0; mo < 12; mo += (narrow ? 6 : 3)){
     const d = Math.round(Date.UTC(y, mo, 1)/864e5); if (d < start || d > asOf) continue;
@@ -1053,6 +1066,7 @@ function drawChart(){
     const p = at(e.d), b = at(e.d-7), dm = p.sc - b.sc;
     e.cls = dm > 0.05 ? 'pos' : dm < -0.05 ? 'neg' : 'neu';
     const col = e.cls === 'pos' ? 'var(--green)' : e.cls === 'neg' ? 'var(--red)' : 'var(--muted)';
+    if (narrow){ s += '<circle cx="' + e.x.toFixed(1) + '" cy="' + Y(p.sc).toFixed(1) + '" r="4" fill="' + col + '" stroke="var(--surface)" stroke-width="1.5"/>'; return; }
     const cy = laneTop + e.lane*laneH + rM;
     s += '<line x1="' + e.x.toFixed(1) + '" x2="' + e.x.toFixed(1) + '" y1="' + Y(p.sc).toFixed(1) + '" y2="' + (cy - rM) + '" stroke="' + col + '" stroke-opacity=".35"/>';
     s += '<circle cx="' + e.x.toFixed(1) + '" cy="' + Y(p.sc).toFixed(1) + '" r="2.8" fill="' + col + '"/>';
@@ -1067,7 +1081,9 @@ function drawChart(){
   const svg = document.getElementById('hist'), cur = document.getElementById('cur'), hit = document.getElementById('hit');
   const show = ev => {
     const r = svg.getBoundingClientRect(), x = (ev.clientX - r.left)/r.width*Wd;
-    const d = Math.round(start + (x - L)/(Wd - L - R)*(asOf - start)); if (d < start || d > asOf) return;
+    let d = Math.round(start + (x - L)/(Wd - L - R)*(asOf - start)); if (d < start || d > asOf) return;
+    const near = evs.reduce((a, e) => Math.abs(e.x - x) < Math.abs(a.x - x) ? e : a);
+    if (Math.abs(near.x - x) <= (narrow ? 10 : 6)){ d = near.d; cur.setAttribute('x1', X(d)); cur.setAttribute('x2', X(d)); cur.setAttribute('opacity', 1); focusEvent(near.n, false); return; }
     const p = at(d); cur.setAttribute('x1', X(d)); cur.setAttribute('x2', X(d)); cur.setAttribute('opacity', 1);
     tip.textContent = fmt(d) + ': estimate ' + p.sc.toFixed(1) + '%, clock ' + clockTime(p.sc) + ', ' + Math.round(pWithin(p.sc,90)*100) + '% chance within 90 days.';
   };
@@ -1103,11 +1119,13 @@ if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(box); else 
 
 /* Method */
 const rows = [
-  ['Progress', W.progress, 'Stage reached: 10 talks launched · 20 scope agreed · 30 negotiating rounds · 60 framework agreed · 75 text almost final · 85 text in legal review · 95 signing date fixed · 100 signed.'],
-  ['Obstacles', W.obstacles, '100% minus each live obstacle: 40 talks suspended · 25 punitive measure, dated threat or legal basis struck down · 15 core issue or pending review · 5 side irritant.'],
-  ['Intent', W.intent, 'Recent tone of what both sides say and do. Statements score −2 (hostile) to +2 (signing announced), taken at face value; meetings +1; postponed rounds −1; missed signing dates −2. Each event\u2019s weight halves every 30 days, and silence drifts back to neutral.']
+  ['Progress', W.progress, 'The furthest stage reached:', [[10,'Talks launched'],[20,'Scope agreed'],[30,'Negotiating rounds'],[60,'Framework agreed'],[75,'Text almost final'],[85,'Text in legal review'],[95,'Signing date fixed'],[100,'Signed']]],
+  ['Obstacles', W.obstacles, '100% minus each live obstacle, restored when it is resolved:', [[-40,'Talks suspended'],[-25,'Punitive measure, dated threat or legal basis struck down'],[-15,'Core issue or pending review'],[-5,'Side irritant']]],
+  ['Intent', W.intent, 'Recent tone of what both sides say and do:', [['±2','Statements, at face value'],[1,'Meetings'],[-1,'Postponed rounds'],[-2,'Missed signing dates']], 'Each event\u2019s weight halves every 30 days, so silence drifts back to neutral.']
 ];
-document.getElementById('methodTable').innerHTML = rows.map(r => '<tr><td><b>' + r[0] + '</b></td><td>' + r[1] + '%</td><td>' + r[2] + '</td></tr>').join('');
+const sgn = v => typeof v !== 'number' ? v : v < 0 ? '\u2212' + (-v) : v < 10 ? '+' + v : String(v);
+document.getElementById('methodTable').innerHTML = rows.map(r => '<tr><td><b>' + r[0] + '</b></td><td>' + r[1] + '%</td><td>' + r[2] +
+  '<ul class="ladder">' + r[3].map(x => '<li><b>' + sgn(x[0]) + '</b><span>' + x[1] + '</span></li>').join('') + '</ul>' + (r[4] ? '<p class="mnote">' + r[4] + '</p>' : '') + '</td></tr>').join('');
 document.getElementById('scale').innerHTML = '<span class="chip" style="background:none;padding-left:0;color:var(--muted)">Estimate → 90-day chance:</span>' + [50,60,70,80,90].map(v => '<span class="chip">' + v + '% → ' + Math.round(p90(v)*100) + '%</span>').join('');
 
 /* Share card for link previews (only when the address ends in #og) */
