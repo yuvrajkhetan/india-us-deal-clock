@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
-"""Regenerate the link-preview image (og.png) and share tags in index.html.
+"""Regenerate the link-preview image and dated metadata from index.html's data.
 
 Run from anywhere after updating the data block in index.html:
     python3 scripts/build_share.py
 
-It opens index.html#og in headless Chromium, screenshots the 1200x630 share
-card, and rewrites the tags between <!-- share:start --> and <!-- share:end -->
-with the current reading. Fonts are loaded from scripts/fonts (SIL OFL).
+It serves the site locally, opens index.html#og in headless Chromium,
+screenshots the 1200x630 share card to og.png, then rewrites the share tags
+(between <!-- share:start --> and <!-- share:end -->), the structured-data
+dateModified, and sitemap.xml with the current reading and date.
 """
-import datetime
+import functools
 import html
+import http.server
 import pathlib
 import re
-import shutil
-import subprocess
+import threading
 
 from playwright.sync_api import sync_playwright
 
@@ -23,28 +24,31 @@ INDEX = ROOT / "index.html"
 IMAGE = ROOT / "og.png"
 
 
-def install_fonts():
-    target = pathlib.Path.home() / ".fonts"
-    target.mkdir(exist_ok=True)
-    for font in (ROOT / "scripts" / "fonts").glob("*.ttf"):
-        shutil.copy(font, target / font.name)
-    subprocess.run(["fc-cache", "-f"], check=False, capture_output=True)
+class QuietHandler(http.server.SimpleHTTPRequestHandler):
+    def log_message(self, *args):
+        pass
+
+
+def serve():
+    handler = functools.partial(QuietHandler, directory=str(ROOT))
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    return server
 
 
 def render():
+    server = serve()
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page(viewport={"width": 1200, "height": 630})
-        # Use the local font copies rather than Google Fonts.
-        page.route("**/fonts.googleapis.com/**", lambda route: route.abort())
-        page.route("**/fonts.gstatic.com/**", lambda route: route.abort())
-        page.goto(INDEX.as_uri() + "#og")
+        page.goto(f"http://127.0.0.1:{server.server_port}/index.html#og")
         page.wait_for_selector("#ogcard")
         page.evaluate("document.fonts.ready.then(() => true)")
         page.wait_for_timeout(300)
         share = page.evaluate("window.__share")
         page.screenshot(path=str(IMAGE), clip={"x": 0, "y": 0, "width": 1200, "height": 630})
         browser.close()
+    server.shutdown()
     return share
 
 
@@ -76,15 +80,20 @@ def write_tags(share):
         "<!-- share:end -->",
     ])
     text = INDEX.read_text(encoding="utf-8")
-    new, n = re.subn(r"<!-- share:start -->.*?<!-- share:end -->", lambda _: block, text, flags=re.S)
+    text, n = re.subn(r"<!-- share:start -->.*?<!-- share:end -->", lambda _: block, text, flags=re.S)
     if n != 1:
         raise SystemExit("share markers not found in index.html")
-    INDEX.write_text(new, encoding="utf-8")
+    text = re.sub(r'"dateModified": "[0-9-]*"', f'"dateModified": "{share["asOf"]}"', text)
+    INDEX.write_text(text, encoding="utf-8")
+    (ROOT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"  <url><loc>{SITE}</loc><lastmod>{share['asOf']}</lastmod></url>\n"
+        "</urlset>\n", encoding="utf-8")
     return title, desc
 
 
 if __name__ == "__main__":
-    install_fonts()
     share = render()
     title, desc = write_tags(share)
     print(f"og.png updated: {title}\n{desc}")
