@@ -4,7 +4,7 @@ A Doomsday-Clock-style estimate of how close India and the US are to signing the
 
 Live page: https://yuvrajkhetan.github.io/india-us-deal-clock/
 
-All figures are computed in the browser from the JSON data block in `index.html`. The data is refreshed weekly with new dated, sourced inputs.
+All figures are computed in the browser from the JSON data block in `index.html`. The data is refreshed daily with new dated, sourced inputs.
 
 ## Link preview
 
