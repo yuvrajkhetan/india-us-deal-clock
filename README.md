@@ -1,0 +1,7 @@
+# India–US Deal Clock
+
+A Doomsday-Clock-style estimate of how close India and the US are to signing the first tranche of their Bilateral Trade Agreement.
+
+Live page: https://yuvrajkhetan.github.io/india-us-deal-clock/
+
+All figures are computed in the browser from the JSON data block in `index.html`. The data is refreshed weekly with new dated, sourced inputs.
