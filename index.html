@@ -3,11 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="How close India and the US are to signing the first tranche of their trade agreement, estimated from public information.">
+<title>India–US Deal Clock</title>
+<!-- share:start -->
+<meta name="description" content="55% chance the first tranche of the India–US trade deal is signed within 90 days. Updated 31 Oct 2026.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="India–US Deal Clock">
+<meta property="og:title" content="India–US Deal Clock: 17 minutes to midnight">
+<meta property="og:description" content="55% chance the first tranche of the India–US trade deal is signed within 90 days. Updated 31 Oct 2026.">
+<meta property="og:url" content="https://yuvrajkhetan.github.io/india-us-deal-clock/">
+<meta property="og:image" content="https://yuvrajkhetan.github.io/india-us-deal-clock/og.png?v=20261031">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Clock face showing 17 minutes to midnight">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="India–US Deal Clock: 17 minutes to midnight">
+<meta name="twitter:description" content="55% chance the first tranche of the India–US trade deal is signed within 90 days. Updated 31 Oct 2026.">
+<meta name="twitter:image" content="https://yuvrajkhetan.github.io/india-us-deal-clock/og.png?v=20261031">
+<!-- share:end -->
 <style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<title>India–US Deal Clock</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -135,6 +150,17 @@ footer{font-size:.82rem;color:var(--muted);display:grid;gap:6px;border-top:1px s
 .homage{font-style:italic;opacity:.8}
 .homage a{color:inherit}
 
+/* Share card: rendered only at #og, captured as the 1200x630 link-preview image */
+#ogcard{position:fixed;inset:0;z-index:100;width:1200px;height:630px;background:var(--bg);display:grid;grid-template-columns:440px minmax(0,1fr);gap:64px;align-items:center;padding:0 80px;box-sizing:border-box;overflow:hidden}
+#ogcard .flagbar{position:absolute;inset:0 0 auto;height:10px}
+#ogcard .og-watch svg{width:440px;height:440px;display:block}
+#ogcard .og-text{display:grid;gap:14px}
+#ogcard .og-eyebrow{font:600 22px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+#ogcard .og-big{font:800 190px/.82 var(--f-display);letter-spacing:-.04em;color:var(--ink)}
+#ogcard .og-unit{font:700 46px/1.1 var(--f-display);color:var(--ink);margin-top:-4px}
+#ogcard .og-odds{font:500 30px/1.3 var(--f-body);color:var(--ink);margin-top:10px}
+#ogcard .og-odds b{font-weight:700;color:var(--navy)}
+#ogcard .og-meta{font:500 20px/1.4 var(--f-mono);color:var(--muted);margin-top:18px}
 @media (max-width:680px){
   .hero{grid-template-columns:1fr;gap:24px}
   .watch{max-width:270px;margin:0 auto;width:100%}
@@ -1065,6 +1091,21 @@ const rows = [
 ];
 document.getElementById('methodTable').innerHTML = rows.map(r => '<tr><td><b>' + r[0] + '</b></td><td>' + r[1] + '%</td><td>' + r[2] + '</td></tr>').join('');
 document.getElementById('scale').innerHTML = '<span class="chip" style="background:none;padding-left:0;color:var(--muted)">Estimate → 90-day chance:</span>' + [50,60,70,80,90].map(v => '<span class="chip">' + v + '% → ' + Math.round(p90(v)*100) + '%</span>').join('');
+
+/* Share card for link previews (only when the address ends in #og) */
+window.__share = {minutes: left, clock: clockTime(now.sc), p30: Math.round(pWithin(now.sc,30)*100), p60: Math.round(pWithin(now.sc,60)*100), p90: Math.round(pWithin(now.sc,90)*100), asOf: m.asOf, asOfText: fmt(asOf)};
+if (location.hash === '#og'){
+  document.documentElement.setAttribute('data-theme', 'light');
+  const card = document.createElement('div');
+  card.id = 'ogcard';
+  card.innerHTML = '<div class="flagbar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' +
+    '<div class="og-watch">' + document.querySelector('#watch svg').outerHTML + '</div>' +
+    '<div class="og-text"><div class="og-eyebrow">India–US Deal Clock</div>' +
+    '<div class="og-big">' + left + '</div><div class="og-unit">' + (left === 1 ? 'minute' : 'minutes') + ' to midnight</div>' +
+    '<div class="og-odds"><b>' + window.__share.p90 + '%</b> chance the first tranche is signed within 90 days</div>' +
+    '<div class="og-meta">Updated ' + fmt(asOf) + '</div></div>';
+  document.body.appendChild(card);
+}
 })();
 </script>
 
