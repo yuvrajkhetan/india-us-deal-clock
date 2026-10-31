@@ -1,4 +1,4 @@
-# India–US Deal Clock
+# India–US Trade Deal Clock
 
 A Doomsday-Clock-style estimate of how close India and the US are to signing the first tranche of their Bilateral Trade Agreement.
 

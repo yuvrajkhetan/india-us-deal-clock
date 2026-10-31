@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>India–US Deal Clock</title>
+<title>India–US Trade Deal Clock</title>
 <link rel="canonical" href="https://yuvrajkhetan.github.io/india-us-deal-clock/">
 <meta name="theme-color" content="#F6F7FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0C0F22" media="(prefers-color-scheme: dark)">
@@ -14,8 +14,8 @@
 <!-- share:start -->
 <meta name="description" content="55% chance the first tranche of the India–US trade deal is signed within 90 days. Updated 31 Oct 2026.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="India–US Deal Clock">
-<meta property="og:title" content="India–US Deal Clock: 17 minutes to midnight">
+<meta property="og:site_name" content="India–US Trade Deal Clock">
+<meta property="og:title" content="India–US Trade Deal Clock: 17 minutes to midnight">
 <meta property="og:description" content="55% chance the first tranche of the India–US trade deal is signed within 90 days. Updated 31 Oct 2026.">
 <meta property="og:url" content="https://yuvrajkhetan.github.io/india-us-deal-clock/">
 <meta property="og:image" content="https://yuvrajkhetan.github.io/india-us-deal-clock/og.png?v=20261031">
@@ -23,11 +23,11 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Clock face showing 17 minutes to midnight">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="India–US Deal Clock: 17 minutes to midnight">
+<meta name="twitter:title" content="India–US Trade Deal Clock: 17 minutes to midnight">
 <meta name="twitter:description" content="55% chance the first tranche of the India–US trade deal is signed within 90 days. Updated 31 Oct 2026.">
 <meta name="twitter:image" content="https://yuvrajkhetan.github.io/india-us-deal-clock/og.png?v=20261031">
 <!-- share:end -->
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "India–US Deal Clock", "url": "https://yuvrajkhetan.github.io/india-us-deal-clock/", "description": "A rule-based, fully sourced estimate of how close India and the US are to signing the first tranche of their Bilateral Trade Agreement, shown as minutes to midnight.", "inLanguage": "en", "dateModified": "2026-10-31"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "India–US Trade Deal Clock", "url": "https://yuvrajkhetan.github.io/india-us-deal-clock/", "description": "A rule-based, fully sourced estimate of how close India and the US are to signing the first tranche of their Bilateral Trade Agreement, shown as minutes to midnight.", "inLanguage": "en", "dateModified": "2026-10-31"}</script>
 <style>
 @font-face{font-family:"Bricolage Grotesque";src:url(fonts/BricolageGrotesque.woff2) format("woff2");font-weight:500 800;font-display:swap}
 @font-face{font-family:"Public Sans";src:url(fonts/PublicSans.woff2) format("woff2");font-weight:400 600;font-display:swap}
@@ -75,8 +75,10 @@ section{display:grid;gap:20px}
 .section-head{display:grid;gap:6px}
 .section-head p{color:var(--muted);max-width:62ch}
 
-header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px}
-header .brand{font:700 1.05rem/1 var(--f-display)}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px 24px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+header .masthead{display:grid;gap:8px;min-width:0}
+header .title{font:800 clamp(1.75rem,4.6vw,2.6rem)/1.05 var(--f-display);letter-spacing:-.02em}
+header .deck{color:var(--muted);max-width:60ch;font-size:1.02rem}
 header .asof{font:400 .82rem/1.3 var(--f-mono);color:var(--muted)}
 
 /* Hero */
@@ -197,15 +199,18 @@ footer{font-size:.82rem;color:var(--muted);display:grid;gap:6px;border-top:1px s
 <div class="flagbar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="wrap">
   <header>
-    <span class="brand">India–US Deal Clock</span>
+    <div class="masthead">
+      <h1 class="title">India–US Trade Deal Clock</h1>
+      <p class="deck">How close are India and the US to signing their trade deal? A weekly estimate from public statements, talks and obstacles.</p>
+    </div>
     <span class="asof" id="asof"></span>
   </header>
 
   <section class="hero" aria-labelledby="headline">
     <div class="watch" id="watch" role="img"></div>
     <div class="headline">
-      <div class="eyebrow">How close is the first tranche to being signed?</div>
-      <h1 class="big num" id="headline"></h1>
+      <div class="eyebrow">How close is the India–US trade deal to being signed?</div>
+      <p class="big num" id="headline"></p>
       <div class="odds" id="odds"></div>
       <div class="deltas" id="deltas"></div>
       <p class="midnight" id="midnight"></p>
@@ -1114,9 +1119,9 @@ if (location.hash === '#og'){
   card.id = 'ogcard';
   card.innerHTML = '<div class="flagbar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' +
     '<div class="og-watch">' + document.querySelector('#watch svg').outerHTML + '</div>' +
-    '<div class="og-text"><div class="og-eyebrow">India–US Deal Clock</div>' +
+    '<div class="og-text"><div class="og-eyebrow">India–US Trade Deal Clock</div>' +
     '<div class="og-big">' + left + '</div><div class="og-unit">' + (left === 1 ? 'minute' : 'minutes') + ' to midnight</div>' +
-    '<div class="og-odds"><b>' + window.__share.p90 + '%</b> chance the first tranche is signed within 90 days</div>' +
+    '<div class="og-odds"><b>' + window.__share.p90 + '%</b> chance the trade deal is signed within 90 days</div>' +
     '<div class="og-meta">Updated ' + fmt(asOf) + '</div></div>';
   document.body.appendChild(card);
 }

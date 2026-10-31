@@ -55,7 +55,7 @@ def render():
 def write_tags(share):
     minutes = share["minutes"]
     unit = "minute" if minutes == 1 else "minutes"
-    title = f"India–US Deal Clock: {minutes} {unit} to midnight"
+    title = f"India–US Trade Deal Clock: {minutes} {unit} to midnight"
     desc = (f"{share['p90']}% chance the first tranche of the India–US trade deal "
             f"is signed within 90 days. Updated {share['asOfText']}.")
     version = share["asOf"].replace("-", "")
@@ -65,7 +65,7 @@ def write_tags(share):
         "<!-- share:start -->",
         f'<meta name="description" content="{e(desc)}">',
         '<meta property="og:type" content="website">',
-        '<meta property="og:site_name" content="India–US Deal Clock">',
+        '<meta property="og:site_name" content="India–US Trade Deal Clock">',
         f'<meta property="og:title" content="{e(title)}">',
         f'<meta property="og:description" content="{e(desc)}">',
         f'<meta property="og:url" content="{SITE}">',
