@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="How close India and the US are to signing the first tranche of their trade agreement, estimated from public information.">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>India–US Deal Clock</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap">
+<style>
+/* Layout: one reading column. Minutes-to-midnight dial, then what changed, a full-width history chart, how the estimate is built, the method. */
+:root{
+  --bg:#F6F7FB; --surface:#FFFFFF; --ink:#141830; --muted:#596079; --line:#E1E4EE; --soft:#EEF0F7;
+  --navy:#1F2A6B; --saffron:#D9741A; --green:#12781A; --red:#B22234; --navy-tint:rgba(31,42,107,.10);
+  /* The watch is a physical object: same materials in both themes */
+  --dial:#F4EFE3; --dial-ink:#1B2140; --dial-faint:#8C8676; --case:#C9CCD3; --case-edge:#8E939E; --w-saffron:#D9741A; --w-green:#12781A; --w-hand:#1B2140;
+  --lume:#F7F3E6; --gmt:#E08A2A; --gmt-ink:#9A5512;
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Public Sans","Helvetica Neue",Arial,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --f-dial:"Oswald","Arial Narrow","Roboto Condensed",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C0F22; --surface:#141933; --ink:#E8EBF7; --muted:#9BA2C0; --line:#262C4E; --soft:#1A2042;
+  --navy:#93A4FF; --saffron:#FFA347; --green:#55C760; --red:#FF6B76; --navy-tint:rgba(147,164,255,.14); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C0F22; --surface:#141933; --ink:#E8EBF7; --muted:#9BA2C0; --line:#262C4E; --soft:#1A2042;
+  --navy:#93A4FF; --saffron:#FFA347; --green:#55C760; --red:#FF6B76; --navy-tint:rgba(147,164,255,.14); color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
+.flagbar{height:5px;display:grid;grid-template-columns:3fr 2fr 2fr 3fr}
+.flagbar i:nth-child(1){background:var(--saffron)}.flagbar i:nth-child(2){background:var(--green)}
+.flagbar i:nth-child(3){background:var(--navy)}.flagbar i:nth-child(4){background:var(--red)}
+.wrap{max-width:920px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:56px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+h2{font-size:1.65rem;font-weight:700}
+h3{font-size:1.05rem;font-weight:700}
+p{margin:0}
+a{color:var(--navy);text-underline-offset:2px}
+a:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--saffron);outline-offset:2px;border-radius:4px}
+.eyebrow{font:500 .74rem/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+.pos{color:var(--green)}.neg{color:var(--red)}.neu{color:var(--muted)}
+section{display:grid;gap:20px}
+.section-head{display:grid;gap:6px}
+.section-head p{color:var(--muted);max-width:62ch}
+
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px}
+header .brand{font:700 1.05rem/1 var(--f-display)}
+header .asof{font:400 .82rem/1.3 var(--f-mono);color:var(--muted)}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:44px;align-items:center}
+.watch svg{width:100%;height:auto;display:block}
+.headline{display:grid;gap:18px}
+.big{font:800 clamp(3.2rem,9vw,5.2rem)/.9 var(--f-display);letter-spacing:-.035em}
+.big .u{font-weight:600;font-size:.5em;letter-spacing:-.01em;margin:0 .12em 0 .04em;color:var(--muted)}
+.big small{display:block;font:600 clamp(1.1rem,3vw,1.4rem)/1.25 var(--f-display);letter-spacing:-.005em;margin-top:10px}
+.big small span{color:var(--muted);font-weight:500}
+.odds{display:grid;gap:10px;padding:14px 16px;border:1px solid var(--line);background:var(--surface);border-radius:10px}
+.odds .eyebrow{margin-bottom:2px}
+.orow{display:grid;grid-template-columns:7.2rem minmax(0,1fr) 3.2rem;gap:12px;align-items:center}
+.orow .lbl{font-size:.88rem}
+.orow .lbl span{display:block;font:400 .74rem/1.2 var(--f-mono);color:var(--muted)}
+.otrack{height:12px;background:var(--soft);border-radius:6px;overflow:hidden}
+.otrack i{display:block;height:100%;background:var(--navy);border-radius:6px}
+.orow b{font:700 1.15rem/1 var(--f-display);text-align:right}
+.deltas{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 .8rem/1.3 var(--f-mono);padding:5px 10px;border-radius:14px;background:var(--soft);color:var(--ink);max-width:100%}
+.chip.up{color:var(--green)}.chip.down{color:var(--red)}
+.midnight{font-size:.9rem;color:var(--muted);max-width:60ch}
+
+/* Latest inputs */
+.inputs{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
+.inputs li{display:grid;grid-template-columns:5.6rem 1.6rem minmax(0,1fr);gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.inputs .d{font:400 .8rem/1.4 var(--f-mono);color:var(--muted)}
+.dir{font:700 .95rem/1 var(--f-mono);text-align:center}
+.inputs .t{min-width:0}
+.tag{font:500 .7rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--saffron);margin-right:6px}
+
+/* Factors */
+.factors{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.factor{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr) auto;gap:6px 18px;align-items:center;padding:14px 16px;background:var(--surface)}
+.factor .name{font-weight:600}
+.factor .name span{display:block;font:400 .78rem/1.3 var(--f-mono);color:var(--muted);margin-top:2px}
+.bar{height:10px;background:var(--soft);border-radius:5px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--navy);border-radius:5px}
+.factor .score{font:600 1rem/1 var(--f-mono);text-align:right;white-space:nowrap}
+.factor .score span{color:var(--muted);font-weight:400}
+.factor .why{grid-column:1/-1;font-size:.88rem;color:var(--muted)}
+.total{display:grid;gap:6px;padding:14px 16px;background:var(--surface)}
+.total div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px}
+.total .num{font-family:var(--f-mono)}
+.total .main{font-weight:600}
+.total .sub{font-size:.9rem;color:var(--muted)}
+
+/* History */
+.chartbox{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:8px 4px 4px}
+.chartbox svg{display:block;width:100%;height:auto;touch-action:pan-y}
+.chartbox text{font-family:var(--f-mono);fill:var(--muted)}
+.tip{font:500 .82rem/1.4 var(--f-mono);color:var(--muted);min-height:1.4em}
+.events{list-style:none;margin:0;padding:0;display:grid;max-height:520px;overflow-y:auto;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.events li{display:grid;grid-template-columns:2rem minmax(0,1fr) auto;gap:4px 14px;padding:14px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.events li:last-child{border-bottom:0}
+.events li.on{background:var(--navy-tint)}
+.badge{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 .72rem/1 var(--f-mono);border:2px solid var(--muted);color:var(--ink)}
+.badge.pos{border-color:var(--green)}.badge.neg{border-color:var(--red)}
+.events .body{display:grid;gap:2px;min-width:0}
+.events .when{font:400 .78rem/1.3 var(--f-mono);color:var(--muted)}
+.events .val{text-align:right;font:600 .95rem/1.2 var(--f-mono);white-space:nowrap}
+.events .val small{display:block;font-weight:400;font-size:.76rem}
+.events p{font-size:.92rem;color:var(--muted)}
+
+/* Method */
+.steps{display:grid;gap:18px;margin:0;padding:0;list-style:none;counter-reset:s}
+.steps>li{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:12px;counter-increment:s}
+.steps>li::before{content:counter(s);font:700 1.15rem/1.5 var(--f-display);color:var(--saffron)}
+.steps>li>div{display:grid;gap:8px;min-width:0}
+.steps p{max-width:66ch}
+.formula{font:500 .9rem/1.7 var(--f-mono);background:var(--soft);padding:10px 12px;border-radius:8px;overflow-x:auto;white-space:nowrap}
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line)}
+th{font:500 .72rem/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td:nth-child(2){font-family:var(--f-mono);white-space:nowrap}
+.scale{display:flex;flex-wrap:wrap;gap:8px}
+.note{font-size:.9rem;color:var(--muted);max-width:66ch}
+footer{font-size:.82rem;color:var(--muted);display:grid;gap:6px;border-top:1px solid var(--line);padding-top:20px}
+.homage{font-style:italic;opacity:.8}
+.homage a{color:inherit}
+
+@media (max-width:680px){
+  .hero{grid-template-columns:1fr;gap:24px}
+  .watch{max-width:270px;margin:0 auto;width:100%}
+  .orow{grid-template-columns:6.4rem minmax(0,1fr) 2.8rem;gap:10px}
+  .factor{grid-template-columns:minmax(0,1fr) auto}
+  .factor .bar{grid-column:1/-1;grid-row:2}
+  .inputs li{grid-template-columns:1.4rem minmax(0,1fr)}
+  .inputs .d{grid-column:2;grid-row:2}
+  .inputs .dir{grid-row:1/3}
+  .events li{grid-template-columns:2rem minmax(0,1fr)}
+  .events .val{grid-column:2;text-align:left;white-space:normal}
+  .events .val small{display:inline;margin-left:8px}
+  .formula{white-space:normal}
+  .tablebox{overflow:visible}
+  .tablebox table{min-width:0}
+  .tablebox thead{display:none}
+  .tablebox tr{display:grid;grid-template-columns:auto auto;justify-content:start;gap:2px 10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .tablebox tr:last-child{border-bottom:0}
+  .tablebox td{padding:0;border:0}
+  .tablebox td:nth-child(3){grid-column:1/-1;color:var(--muted)}
+}
+</style>
+
+<div class="flagbar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+  <header>
+    <span class="brand">India–US Deal Clock</span>
+    <span class="asof" id="asof"></span>
+  </header>
+
+  <section class="hero" aria-labelledby="headline">
+    <div class="watch" id="watch" role="img"></div>
+    <div class="headline">
+      <div class="eyebrow">How close is the first tranche to being signed?</div>
+      <h1 class="big num" id="headline"></h1>
+      <div class="odds" id="odds"></div>
+      <div class="deltas" id="deltas"></div>
+      <p class="midnight" id="midnight"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="latest">
+    <div class="section-head">
+      <h2 id="latest">Latest inputs</h2>
+      <p>What changed in the last 30 days. <b class="pos">+</b> moves the clock toward signing, <b class="neg">−</b> away from it.</p>
+    </div>
+    <ul class="inputs" id="inputs"></ul>
+  </section>
+
+
+  <section aria-labelledby="timeline">
+    <div class="section-head">
+      <h2 id="timeline">The clock since talks began</h2>
+      <p>The estimate for every day since 13 February 2025, read against the clock on the right. Numbered points match the events below. Hover or tap the chart to read any day.</p>
+    </div>
+    <div class="chartbox" id="chartbox"></div>
+    <div class="tip" id="tip" aria-live="polite"></div>
+    <ol class="events" id="events"></ol>
+  </section>
+
+  <section aria-labelledby="drivers">
+    <div class="section-head">
+      <h2 id="drivers">How the estimate is built</h2>
+      <p>Three factors, each scored 0 to 100%, combined by weight into one estimate. The estimate sets the time on the clock.</p>
+    </div>
+    <div class="factors" id="factors"></div>
+  </section>
+
+  <section aria-labelledby="method">
+    <div class="section-head">
+      <h2 id="method">Methodology</h2>
+      <p>Every input is dated and sourced, and the same inputs always give the same result.</p>
+    </div>
+    <ol class="steps">
+      <li><div><h3>Score three factors from 0 to 100%</h3>
+        <div class="tablebox"><table><thead><tr><th>Factor</th><th>Weight</th><th>How it is scored</th></tr></thead><tbody id="methodTable"></tbody></table></div></div></li>
+      <li><div><h3>Combine them and set the clock</h3><p>Like the Doomsday Clock, the dial shows the last hour: 0% is 60 minutes out, signing is midnight.</p>
+        <div class="formula">Estimate = 50% × Progress + 30% × Obstacles + 20% × Intent<br>Minutes to midnight = 60 × (100% − Estimate)</div></div></li>
+      <li><div><h3>Convert to a chance of signing</h3><p>An S-curve centred on 70% gives the 90-day chance. The 30- and 60-day figures spread it evenly across the three months.</p><div class="scale" id="scale"></div></div></li>
+      <li><div><h3>Update weekly</h3><p>New inputs are added every week. Only public information counts.</p></div></li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>Not affiliated with either government. Each input links to its source; quoted phrases are short excerpts from those reports.</p>
+    <p class="homage">Inspired by the <a href="https://thebulletin.org/doomsday-clock/" target="_blank" rel="noopener">Doomsday Clock</a> of the Bulletin of the Atomic Scientists.</p>
+  </footer>
+</div>
+
+<script type="application/json" id="model">{
+ "asOf": "2026-10-29",
+ "start": "2025-02-13",
+ "midnight": "Formal signing of the first tranche (interim agreement) of the India-US Bilateral Trade Agreement",
+ "signed": null,
+ "weights": {
+  "progress": 50,
+  "obstacles": 30,
+  "intent": 20
+ },
+ "calibration": {
+  "midpoint": 70,
+  "scale": 6,
+  "windowDays": 90
+ },
+ "stages": [
+  {
+   "date": "2025-02-13",
+   "score": 10,
+   "label": "Talks launched",
+   "src": "https://www.caalley.com/news-updates/indian-news/india-us-trade-deal-timeline-of-negotiations-tariffs-and-turning-points"
+  },
+  {
+   "date": "2025-04-22",
+   "score": 20,
+   "label": "Terms of reference finalised",
+   "src": "https://www.business-standard.com/economy/news/india-us-bilateral-trade-agreement-talks-deal-125041100906_1.html"
+  },
+  {
+   "date": "2025-04-25",
+   "score": 30,
+   "label": "Negotiating rounds under way",
+   "src": "https://www.newsonair.gov.in/india-and-us-cover-tariff-and-non-tariff-matters-during-ongoing-bilateral-discussions"
+  },
+  {
+   "date": "2026-02-02",
+   "score": 60,
+   "label": "Framework agreed",
+   "src": "https://kpmg.com/us/en/taxnewsflash/news/2026/02/united-states-removes-tariffs-imports-india.html"
+  },
+  {
+   "date": "2026-04-20",
+   "score": 75,
+   "label": "Text almost final (officials)",
+   "src": "https://www.newkerala.com/news/a/first-tranche-india-us-trade-deal-almost-finalised-piyush-276.htm"
+  },
+  {
+   "date": "2026-10-15",
+   "score": 85,
+   "label": "Text finalised, in legal drafting",
+   "src": "https://www.indiandefensenews.in/2026/10/india-us-trade-deal-first-phase.html"
+  }
+ ],
+ "blockers": [
+  {
+   "name": "Market-access gaps: agriculture, dairy, non-tariff barriers",
+   "severity": 15,
+   "start": "2025-02-13",
+   "end": null,
+   "src": "https://www.tribuneindia.com/news/business/india-us-representatives-hold-positive-meeting-on-trade-deal-vow-to-intensify-efforts-for-bta/amp"
+  },
+  {
+   "name": "US suspends trade talks",
+   "severity": 40,
+   "start": "2025-08-07",
+   "end": "2025-09-16",
+   "src": "https://scroll.in/latest/1085351/trade-talks-with-india-on-hold-says-donald-trump-amid-tariff-dispute"
+  },
+  {
+   "name": "Extra 25% Russian-oil penalty tariff",
+   "severity": 25,
+   "start": "2025-08-06",
+   "end": "2026-02-06",
+   "src": "https://kpmg.com/us/en/taxnewsflash/news/2026/02/united-states-removes-tariffs-imports-india.html"
+  },
+  {
+   "name": "Russian oil purchases back in dispute",
+   "severity": 15,
+   "start": "2026-07-01",
+   "end": null,
+   "src": "https://www.econiti.org/daily-news/2026-10-18/2026-10-18-us-waives-russia-oil-sanctions-law-india/"
+  },
+  {
+   "name": "Graham Act: up to 100% tariff threat (18 Oct deadline)",
+   "severity": 25,
+   "start": "2026-09-18",
+   "end": "2026-10-16",
+   "src": "https://www.outlookbusiness.com/news/us-tariff-u-turn-on-russian-oil-what-changed-for-india"
+  },
+  {
+   "name": "Visa friction: Indian IT firms suspended from PERM",
+   "severity": 5,
+   "start": "2026-10-08",
+   "end": null,
+   "src": "https://swarajyamag.com/news-brief/us-suspends-microsoft-infosys-tcs-wipro-and-five-other-it-giants-from-green-card-programme"
+  },
+  {
+   "name": "Policy uncertainty: US reciprocal tariffs threatened",
+   "severity": 5,
+   "start": "2025-02-13",
+   "end": "2025-04-02",
+   "src": "https://www.caalley.com/news-updates/indian-news/india-us-trade-deal-timeline-of-negotiations-tariffs-and-turning-points"
+  },
+  {
+   "name": "Dated threat: 26% US tariff paused to rolling deadlines",
+   "severity": 25,
+   "start": "2025-04-02",
+   "end": "2025-08-01",
+   "src": "https://www.lexology.com/library/detail.aspx?g=7b924d03-1fdd-4779-bc9f-9ec41b3b29a9"
+  },
+  {
+   "name": "Policy uncertainty: legality of US tariffs before the courts",
+   "severity": 15,
+   "start": "2025-08-01",
+   "end": "2026-02-20",
+   "src": "https://www.tribuneindia.com/news/business/first-tranche-of-trade-deal-with-us-may-conclude-by-end-2025-commerce-secretary/amp"
+  },
+  {
+   "name": "Policy uncertainty: US tariffs struck down, temporary stopgap in place",
+   "severity": 25,
+   "start": "2026-02-20",
+   "end": "2026-07-24",
+   "src": "https://newsarenaindia.com/economy/india-us-put-interim-trade-pact-talks-on-hold/70597"
+  },
+  {
+   "name": "Policy uncertainty: US Section 301 overcapacity findings pending",
+   "severity": 15,
+   "start": "2026-07-24",
+   "end": null,
+   "src": "https://airliftusa.com/tariff-updates/india"
+  }
+ ],
+ "engagements": [
+  {
+   "date": "2025-02-13",
+   "label": "Modi-Trump meeting, Washington"
+  },
+  {
+   "date": "2025-03-07",
+   "label": "Goyal meets Lutnick and Greer, Washington"
+  },
+  {
+   "date": "2025-04-22",
+   "label": "Terms of reference announced, US Vice President in Delhi"
+  },
+  {
+   "date": "2025-04-25",
+   "label": "Negotiating round, Washington"
+  },
+  {
+   "date": "2025-05-20",
+   "label": "Goyal and chief negotiator in Washington"
+  },
+  {
+   "date": "2025-07-18",
+   "label": "Negotiating round, Washington"
+  },
+  {
+   "date": "2025-09-16",
+   "label": "US chief negotiator in New Delhi"
+  },
+  {
+   "date": "2025-09-22",
+   "label": "Goyal meets Greer, Washington"
+  },
+  {
+   "date": "2025-12-11",
+   "label": "Modi-Trump call"
+  },
+  {
+   "date": "2026-02-02",
+   "label": "Modi-Trump call"
+  },
+  {
+   "date": "2026-04-23",
+   "label": "Chief negotiators' round, Washington"
+  },
+  {
+   "date": "2026-06-04",
+   "label": "Negotiating round, New Delhi"
+  },
+  {
+   "date": "2026-06-17",
+   "label": "Modi-Trump meeting at G7"
+  },
+  {
+   "date": "2026-06-24",
+   "label": "Greer-Goyal talks, New Delhi"
+  },
+  {
+   "date": "2026-09-30",
+   "label": "Modi-Trump call"
+  },
+  {
+   "date": "2026-10-01",
+   "label": "Goyal-Greer meeting, Milwaukee"
+  },
+  {
+   "date": "2026-10-17",
+   "label": "Commerce Secretary's talks, Washington"
+  },
+  {
+   "date": "2026-10-20",
+   "label": "Rubio-Jaishankar meeting, Mumbai"
+  }
+ ],
+ "targets": [
+  {
+   "set": "2025-02-13",
+   "due": "2025-11-30",
+   "label": "First tranche by fall 2025",
+   "src": "https://www.deccanherald.com/business/you-will-hear-good-news-piyush-goyal-on-india-us-trade-deal-3801897"
+  },
+  {
+   "set": "2025-11-28",
+   "due": "2025-12-31",
+   "label": "First tranche within 2025",
+   "src": "https://www.tribuneindia.com/news/business/first-tranche-of-trade-deal-with-us-may-conclude-by-end-2025-commerce-secretary/amp"
+  },
+  {
+   "set": "2026-02-05",
+   "due": "2026-03-31",
+   "label": "Signing in March 2026",
+   "src": "https://www.outlookbusiness.com/economy-and-policy/first-tranche-of-indiaus-deal-to-conclude-by-mid-march-says-commerce-minister-piyush-goyal"
+  },
+  {
+   "set": "2026-06-05",
+   "due": "2026-07-15",
+   "label": "First tranche by mid-July 2026",
+   "src": "https://www.brecorder.com/news/40424165"
+  }
+ ],
+ "signals": [
+  {
+   "date": "2025-02-13",
+   "who": "Modi and Trump",
+   "score": 1,
+   "text": "Launch the BTA; aim for a first tranche by fall 2025",
+   "src": "https://www.caalley.com/news-updates/indian-news/india-us-trade-deal-timeline-of-negotiations-tariffs-and-turning-points"
+  },
+  {
+   "date": "2025-04-29",
+   "who": "Commerce Ministry",
+   "score": 1,
+   "text": "Washington round 'fruitful'; early wins discussed",
+   "src": "https://www.newsonair.gov.in/india-and-us-cover-tariff-and-non-tariff-matters-during-ongoing-bilateral-discussions"
+  },
+  {
+   "date": "2025-06-27",
+   "who": "Trump",
+   "score": 1,
+   "text": "Says a major deal with India is coming soon",
+   "src": "https://www.theweek.in/news/india/2025/06/27/will-india-sign-bilateral-trade-pact-with-us-before-july-9-tariff-deadline-major-deal-soon-says-trump.amp.html"
+  },
+  {
+   "date": "2025-07-04",
+   "who": "Goyal",
+   "score": -1,
+   "text": "India won't sign to a deadline; national interest first",
+   "src": "https://indiaseatradenews.com/?p=121707"
+  },
+  {
+   "date": "2025-08-06",
+   "who": "Government of India",
+   "score": -1,
+   "text": "Calls the extra 25% tariff 'extremely unfortunate'",
+   "src": "https://english.aaj.tv/news/amp/330428190"
+  },
+  {
+   "date": "2025-08-07",
+   "who": "Trump",
+   "score": -2,
+   "text": "No trade talks with India 'until we get it resolved'",
+   "src": "https://scroll.in/latest/1085351/trade-talks-with-india-on-hold-says-donald-trump-amid-tariff-dispute"
+  },
+  {
+   "date": "2025-09-10",
+   "who": "Trump and Modi",
+   "score": 1,
+   "text": "Both express confidence talks will conclude early",
+   "src": "https://indbiz.gov.in/?p=37199"
+  },
+  {
+   "date": "2025-09-16",
+   "who": "Commerce Ministry",
+   "score": 1,
+   "text": "Delhi talks 'positive and forward-looking'",
+   "src": "https://www.tribuneindia.com/news/business/india-us-representatives-hold-positive-meeting-on-trade-deal-vow-to-intensify-efforts-for-bta/amp"
+  },
+  {
+   "date": "2025-10-19",
+   "who": "Trump",
+   "score": -1,
+   "text": "Warns of 'massive' tariffs unless India curbs Russian oil",
+   "src": "https://www.deccanherald.com/amp/story/world%2Ftrump-says-india-will-continue-paying-massive-tariffs-if-russian-oil-purchase-not-restricted-3769996"
+  },
+  {
+   "date": "2025-10-22",
+   "who": "Trump",
+   "score": 1,
+   "text": "Says Modi assured him India will wind down Russian oil",
+   "src": "https://www.rigzone.com/news/wire/trump_again_says_india_pm_agreed_to_ease_russian_energy_buys-22-oct-2025-182144-article/?rss=true"
+  },
+  {
+   "date": "2025-11-14",
+   "who": "Senior US official",
+   "score": 1,
+   "text": "Deal possible before year-end",
+   "src": "https://www.newsonair.gov.in/tag/tradetalks"
+  },
+  {
+   "date": "2025-11-28",
+   "who": "Commerce Secretary",
+   "score": 1,
+   "text": "Hopes to sign the first tranche within 2025",
+   "src": "https://www.tribuneindia.com/news/business/first-tranche-of-trade-deal-with-us-may-conclude-by-end-2025-commerce-secretary/amp"
+  },
+  {
+   "date": "2025-12-11",
+   "who": "Modi",
+   "score": 1,
+   "text": "'Warm and engaging' call with Trump",
+   "src": "https://www.dawn.com/news/1960684"
+  },
+  {
+   "date": "2026-02-02",
+   "who": "Trump",
+   "score": 2,
+   "text": "Announces a deal: US tariff on India cut to 18%",
+   "src": "https://www.thenews.pk/story/1396805-trump-announces-trade-deal-with-india-after-modi-call"
+  },
+  {
+   "date": "2026-02-05",
+   "who": "Goyal",
+   "score": 2,
+   "text": "First tranche to be signed by next month",
+   "src": "https://www.deccanherald.com/india/india-us-trade-deal-to-be-signed-by-mid-march-piyush-goyal-3888228"
+  },
+  {
+   "date": "2026-02-06",
+   "who": "Joint statement",
+   "score": 2,
+   "text": "Framework for an interim agreement published",
+   "src": "https://kpmg.com/us/en/taxnewsflash/news/2026/02/united-states-removes-tariffs-imports-india.html"
+  },
+  {
+   "date": "2026-02-21",
+   "who": "Both governments",
+   "score": -1,
+   "text": "Chief negotiators' meeting postponed after court ruling",
+   "src": "https://www.thenewsminute.com/news/india-us-trade-deal-in-limbo-after-us-supreme-court-blocks-trump-tariffs"
+  },
+  {
+   "date": "2026-03-16",
+   "who": "Commerce Secretary",
+   "score": -1,
+   "text": "India will sign only after a new US tariff framework",
+   "src": "https://www.5paisa.com/news/india-to-sign-us-trade-deal-after-washington-finalises-new-tariff-structure"
+  },
+  {
+   "date": "2026-04-20",
+   "who": "Goyal",
+   "score": 2,
+   "text": "First tranche 'almost finalised'",
+   "src": "https://www.newkerala.com/news/a/first-tranche-india-us-trade-deal-almost-finalised-piyush-276.htm"
+  },
+  {
+   "date": "2026-04-21",
+   "who": "Senior US official",
+   "score": 1,
+   "text": "Washington talks 'positive and productive'",
+   "src": "https://www.angelone.in/news/economy/india-us-trade-negotiations-enter-final-leg-with-limited-issues-pending"
+  },
+  {
+   "date": "2026-05-05",
+   "who": "Landau (US Deputy Secretary of State)",
+   "score": 2,
+   "text": "'Very close'; one last hurdle",
+   "src": "https://www.theweek.in/wire-updates/business/2026/05/06/india-us-very-close-to-trade-deal-need-to-get-over-last-hurdle-landau.html"
+  },
+  {
+   "date": "2026-06-05",
+   "who": "Goyal",
+   "score": 2,
+   "text": "First tranche likely by mid-July",
+   "src": "https://www.brecorder.com/news/40424165"
+  },
+  {
+   "date": "2026-06-17",
+   "who": "Trump and Modi",
+   "score": 2,
+   "text": "Trump: 'very close'; leaders tell officials to fast-track",
+   "src": "https://upstox.com/news/business-news/latest-updates/pm-modi-trump-ask-officials-to-fast-track-commercially-meaningful-interim-trade-pact/article-195563/"
+  },
+  {
+   "date": "2026-06-24",
+   "who": "Government of India",
+   "score": 1,
+   "text": "Goyal-Greer talks discussed pathways to conclude the interim deal",
+   "src": "https://theedgemalaysia.com/node/808152"
+  },
+  {
+   "date": "2026-09-30",
+   "who": "Modi and Trump",
+   "score": 1,
+   "text": "'Constructive' call on the deal",
+   "src": "https://political.org/2026/10/01/ustr-jamieson-greer-says-u-s-india-trade-deal-not-imminent-despite-constructive-modi-trump-call/"
+  },
+  {
+   "date": "2026-10-01",
+   "who": "Greer (USTR)",
+   "score": 0,
+   "text": "In 'short strokes' but 'not imminent'",
+   "src": "https://www.business-standard.com/world-news/india-us-trade-deal-in-short-strokes-but-not-imminent-says-ustr-greer-126100200872_1.html"
+  },
+  {
+   "date": "2026-10-05",
+   "who": "Sitharaman",
+   "score": -1,
+   "text": "Talks have reached a plateau",
+   "src": "https://www.cnbc.com/2026/10/06/india-us-trade-deal-deal-sitharaman.html"
+  },
+  {
+   "date": "2026-10-15",
+   "who": "Goyal",
+   "score": 2,
+   "text": "First tranche finalised, now in legal drafting",
+   "src": "https://www.indiandefensenews.in/2026/10/india-us-trade-deal-first-phase.html"
+  },
+  {
+   "date": "2026-10-16",
+   "who": "Sitharaman",
+   "score": 1,
+   "text": "Hopes for early finalisation",
+   "src": "https://www.freepressjournal.in/business/sitharaman-hopes-for-early-fta-signing-with-us-after-goyal-confirms-first-tranche-finalised"
+  },
+  {
+   "date": "2026-10-20",
+   "who": "Rubio",
+   "score": 2,
+   "text": "'Very, very close' to concluding",
+   "src": "https://www.wsoctv.com/news/politics/rubio-jaishankar/YZM3PT6EVM4JZOUHIGANOJCAOQ/"
+  },
+  {
+   "date": "2026-10-20",
+   "who": "Trump",
+   "score": 2,
+   "text": "'Pretty close' to a deal",
+   "src": "https://www.bloomberg.com/news/articles/2026-10-20/trump-says-us-trade-deal-with-india-is-pretty-close"
+  },
+  {
+   "date": "2026-10-26",
+   "who": "Goyal",
+   "score": 2,
+   "text": "Most talks concluded; 'fine-tuning'",
+   "src": "https://www.tribuneindia.com/news/world/india-us-conclude-most-trade-pact-talks-fine-tuning-agreement-goyal"
+  },
+  {
+   "date": "2026-10-26",
+   "who": "White House",
+   "score": 1,
+   "text": "'Productive talks' on a historic deal",
+   "src": "https://www.freepressjournal.in/business/agreement-being-fine-tuned-piyush-goyal-signals-progress-in-india-us-trade-deal-talks-after-tariff-changes-negotiations"
+  },
+  {
+   "date": "2026-10-29",
+   "who": "Goyal",
+   "score": -1,
+   "text": "Farmers and domestic industry won't be compromised",
+   "src": "https://www.businesstoday.in/india/story/india-us-trade-deal-farmers-or-domestic-industry-wont-be-compromised-says-piyush-goyal-564487-2026-10-29"
+  }
+ ],
+ "keyEvents": [
+  {
+   "date": "2025-02-13",
+   "title": "Talks launched",
+   "text": "Modi and Trump agree to negotiate a Bilateral Trade Agreement, first tranche by fall 2025.",
+   "src": "https://www.caalley.com/news-updates/indian-news/india-us-trade-deal-timeline-of-negotiations-tariffs-and-turning-points"
+  },
+  {
+   "date": "2025-04-02",
+   "title": "26% 'reciprocal' tariff",
+   "text": "US announces a 26% tariff on Indian goods, later paused under rolling deadlines.",
+   "src": "https://www.lexology.com/library/detail.aspx?g=7b924d03-1fdd-4779-bc9f-9ec41b3b29a9"
+  },
+  {
+   "date": "2025-04-22",
+   "title": "Terms of reference agreed",
+   "text": "Scope for the first tranche finalised and announced during the US Vice President's visit.",
+   "src": "https://www.business-standard.com/economy/news/india-us-bilateral-trade-agreement-talks-deal-125041100906_1.html"
+  },
+  {
+   "date": "2025-07-18",
+   "title": "No breakthrough",
+   "text": "Negotiators return without a deal; the July 9 deadline passes.",
+   "src": "https://www.indiatvnews.com/news/world/india-and-us-seal-landmark-trade-deal-after-year-long-tariff-standoff-here-is-timeline-of-key-events-donald-trump-talks-to-pm-modi-2026-02-03-1028660"
+  },
+  {
+   "date": "2025-08-07",
+   "title": "50% tariff, talks frozen",
+   "text": "Extra 25% penalty over Russian oil; Trump rules out talks until resolved.",
+   "src": "https://scroll.in/latest/1085351/trade-talks-with-india-on-hold-says-donald-trump-amid-tariff-dispute"
+  },
+  {
+   "date": "2025-09-16",
+   "title": "Talks resume",
+   "text": "US chief negotiator in New Delhi; both sides call talks positive.",
+   "src": "https://www.tribuneindia.com/news/business/india-us-representatives-hold-positive-meeting-on-trade-deal-vow-to-intensify-efforts-for-bta/amp"
+  },
+  {
+   "date": "2025-10-22",
+   "title": "Oil assurances",
+   "text": "Trump says Modi agreed to wind down Russian oil; the US sanctions Rosneft and Lukoil the same day.",
+   "src": "https://babel.ua/en/news/124700-trump-india-agreed-not-to-buy-russian-oil-this-will-help-stop-the-war-in-ukraine"
+  },
+  {
+   "date": "2025-12-31",
+   "title": "Year-end target missed",
+   "text": "Commerce Secretary's goal of a 2025 signing passes.",
+   "src": "https://www.tribuneindia.com/news/business/first-tranche-of-trade-deal-with-us-may-conclude-by-end-2025-commerce-secretary/amp"
+  },
+  {
+   "date": "2026-02-06",
+   "title": "Framework agreed",
+   "text": "Joint statement sets an 18% US tariff; Russian-oil penalty removed. Signing expected in March.",
+   "src": "https://kpmg.com/us/en/taxnewsflash/news/2026/02/united-states-removes-tariffs-imports-india.html"
+  },
+  {
+   "date": "2026-02-20",
+   "title": "Supreme Court ruling",
+   "text": "IEEPA tariffs struck down; the 18% benchmark vanishes and talks are postponed.",
+   "src": "https://www.thenewsminute.com/news/india-us-trade-deal-in-limbo-after-us-supreme-court-blocks-trump-tariffs"
+  },
+  {
+   "date": "2026-03-16",
+   "title": "India waits",
+   "text": "India says it will sign only once the new US tariff framework is clear; Section 301 probes opened days earlier.",
+   "src": "https://www.5paisa.com/news/india-to-sign-us-trade-deal-after-washington-finalises-new-tariff-structure"
+  },
+  {
+   "date": "2026-04-23",
+   "title": "Back at the table",
+   "text": "First in-person round since the framework; Goyal says text is almost final.",
+   "src": "https://newsonair.gov.in/india-and-united-states-will-resume-trade-negotiations-on-first-phase-of-their-proposed-bilateral-trade-agreement/"
+  },
+  {
+   "date": "2026-06-17",
+   "title": "Modi-Trump at G7",
+   "text": "Trump says 'very close'; leaders direct officials to fast-track. Greer visits Delhi a week later.",
+   "src": "https://www.dawn.com/news/2008828"
+  },
+  {
+   "date": "2026-07-24",
+   "title": "New US tariff regime",
+   "text": "Temporary tariff expires; a 10% Section 301 duty on India replaces it. Mid-July target missed.",
+   "src": "https://www.hklaw.com/en/insights/publications/2026/07/and-the-tariff-beat-goes-on"
+  },
+  {
+   "date": "2026-09-18",
+   "title": "Graham Act signed",
+   "text": "Law allows up to 100% tariffs on top buyers of Russian oil from October 18.",
+   "src": "https://www.outlookbusiness.com/news/us-tariff-u-turn-on-russian-oil-what-changed-for-india"
+  },
+  {
+   "date": "2026-10-05",
+   "title": "Talks stall",
+   "text": "Greer says not imminent; Sitharaman says talks have plateaued.",
+   "src": "https://www.cnbc.com/2026/10/06/india-us-trade-deal-deal-sitharaman.html"
+  },
+  {
+   "date": "2026-10-16",
+   "title": "Text final; tariffs waived",
+   "text": "Goyal says text is in legal drafting; Trump waives the Graham Act tariffs.",
+   "src": "https://www.businesstoday.in/latest/economy/story/trump-pauses-russia-linked-tariffs-threatening-india-and-china-what-it-means-for-india-562214-2026-10-17"
+  },
+  {
+   "date": "2026-10-26",
+   "title": "'Fine-tuning'",
+   "text": "Rubio: 'very, very close'. Goyal: most talks concluded.",
+   "src": "https://www.tribuneindia.com/news/world/india-us-conclude-most-trade-pact-talks-fine-tuning-agreement-goyal"
+  }
+ ],
+ "intent": {
+  "halfLifeDays": 30,
+  "neutralEvents": 3,
+  "meeting": 1,
+  "missedTarget": -2
+ }
+}</script>
+<script>
+(function(){
+const m = JSON.parse(document.getElementById('model').textContent);
+const DAY = s => Math.round(Date.UTC(+s.slice(0,4), +s.slice(5,7)-1, +s.slice(8,10)) / 864e5);
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const fmt = n => { const d = new Date(n*864e5); return d.getUTCDate()+' '+MON[d.getUTCMonth()]+' '+d.getUTCFullYear(); };
+const fmtS = n => { const d = new Date(n*864e5); return d.getUTCDate()+' '+MON[d.getUTCMonth()]+' '+String(d.getUTCFullYear()).slice(2); };
+const fmtDM = n => { const d = new Date(n*864e5); return d.getUTCDate()+' '+MON[d.getUTCMonth()]; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const W = m.weights, C = m.calibration;
+const start = DAY(m.start), asOf = DAY(m.asOf), signedDay = m.signed ? DAY(m.signed) : null;
+
+/* Time helpers: one-hour clock. Estimate 0% = 11:00 pm, 60 minutes to midnight; 100% = midnight (signed) */
+const minsLeft = sc => Math.round(60*(1 - sc/100));
+const hm = mins => { const h = Math.floor(mins/60), mm = mins % 60; return h ? h + ' h ' + String(mm).padStart(2,'0') + ' min' : mm + ' min'; };
+const clockTime = sc => { const l = minsLeft(sc); return l <= 0 ? 'midnight' : '11:' + String(60 - l).padStart(2,'0') + ' pm'; };
+
+const IN = m.intent;
+const EVENTS = [].concat(
+  m.signals.map(s => ({d:DAY(s.date), v:s.score})),
+  m.engagements.map(e => ({d:DAY(e.date), v:IN.meeting})),
+  m.targets.map(t => ({d:DAY(t.due)+1, v:IN.missedTarget}))
+);
+function factors(d){
+  let P = 0; m.stages.forEach(s => { if (DAY(s.date) <= d) P = Math.max(P, s.score); });
+  let pen = 0; const active = [];
+  m.blockers.forEach(b => { if (DAY(b.start) <= d && (b.end === null || DAY(b.end) > d)) { pen += b.severity; active.push(b); } });
+  /* Intent: recency-weighted average tone of every dated event, pulled towards neutral */
+  let num = 0, den = 0, recent = 0;
+  EVENTS.forEach(e => { if (e.d <= d){ const w = Math.pow(0.5, (d - e.d)/IN.halfLifeDays); num += w*e.v; den += w; if (d - e.d < 60) recent++; } });
+  const tone = num/(den + IN.neutralEvents);
+  return {P, O: Math.max(0, 100-pen), I: 50 + 25*tone, tone, recent, active};
+}
+const p90 = sc => sc >= 100 ? 1 : 1/(1+Math.exp(-(sc - C.midpoint)/C.scale));
+const pWithin = (sc, days) => 1 - Math.pow(1 - p90(sc), days/90);
+const series = [];
+for (let d = start; d <= asOf; d++){
+  const f = factors(d);
+  f.sc = (W.progress*f.P + W.obstacles*f.O + W.intent*f.I)/100;
+  if (signedDay !== null && d >= signedDay) f.sc = 100;
+  f.d = d; series.push(f);
+}
+const at = d => series[Math.max(0, Math.min(series.length-1, d - start))];
+const now = series[series.length-1];
+
+/* Hero */
+const mid = m.midnight.charAt(0).toLowerCase() + m.midnight.slice(1);
+const left = minsLeft(now.sc);
+document.getElementById('asof').textContent = 'Updated ' + fmt(asOf);
+document.getElementById('headline').innerHTML = left + '<small>' + (left === 1 ? 'minute' : 'minutes') + ' to midnight <span>· the clock reads ' + clockTime(now.sc) + '</span></small>';
+document.getElementById('odds').innerHTML = '<div class="eyebrow">Chance of signing</div>' + [30,60,90].map(k => {
+  const p = Math.round(pWithin(now.sc, k)*100);
+  return '<div class="orow"><div class="lbl">Within ' + k + ' days<span>by ' + fmtDM(asOf + k) + '</span></div><div class="otrack" role="img" aria-label="' + p + ' percent"><i style="width:' + p + '%"></i></div><b class="num">' + p + '%</b></div>';
+}).join('');
+document.getElementById('midnight').textContent = 'Midnight = ' + mid + '.';
+const deltas = document.getElementById('deltas');
+[[7,'last week'],[30,'a month ago']].forEach(([k,label]) => {
+  const dm = minsLeft(at(asOf-k).sc) - left;
+  const cls = dm > 0 ? 'up' : dm < 0 ? 'down' : '';
+  const txt = dm === 0 ? 'No change since ' + label : (dm > 0 ? '▲ ' : '▼ ') + hm(Math.abs(dm)) + ' ' + (dm > 0 ? 'closer' : 'further') + ' than ' + label;
+  deltas.insertAdjacentHTML('beforeend', '<span class="chip ' + cls + '">' + txt + '</span>');
+});
+const best = series.reduce((a,b) => b.sc > a.sc ? b : a);
+const ago = asOf - best.d;
+deltas.insertAdjacentHTML('beforeend', '<span class="chip">Closest so far: ' + fmt(best.d) + (ago ? ' (' + ago + ' day' + (ago === 1 ? '' : 's') + ' ago)' : ' (today)') + ', at ' + minsLeft(best.sc) + ' min to midnight</span>');
+
+/* Watch: steel field watch. Ivory dial, condensed Arabic numerals, railway minute track, sword hands,
+   a GMT-style hand for a month ago, and an original monochrome medallion (wheel ringed by thirteen stars). */
+(function(){
+  const c = 150, rad = a => (a-90)*Math.PI/180, f1 = n => n.toFixed(1);
+  const P = (deg, r) => [c + r*Math.cos(rad(deg)), c + r*Math.sin(rad(deg))];
+  const elapsed = 60 - left, hDeg = (11 + elapsed/60)*30, mDeg = elapsed*6;
+  let s = '<svg viewBox="0 0 300 300" aria-hidden="true">';
+  s += '<circle cx="150" cy="150" r="148" fill="var(--case)"/><circle cx="150" cy="150" r="148" fill="none" stroke="var(--case-edge)" stroke-width="1.5"/>';
+  s += '<circle cx="150" cy="150" r="138" fill="var(--dial)"/>';
+  if (left > 0){
+    const [ax,ay] = P(mDeg, 128.5), large = left > 30 ? 1 : 0;
+    s += '<path d="M ' + f1(ax) + ' ' + f1(ay) + ' A 128.5 128.5 0 ' + large + ' 1 150 21.5" fill="none" stroke="var(--w-saffron)" stroke-width="11"/>';
+  }
+  s += '<circle cx="150" cy="150" r="134" fill="none" stroke="var(--dial-ink)" stroke-width=".8"/><circle cx="150" cy="150" r="123" fill="none" stroke="var(--dial-ink)" stroke-width=".8"/>';
+  for (let i = 0; i < 60; i++){
+    const five = i % 5 === 0, [x1,y1] = P(i*6, 134), [x2,y2] = P(i*6, five ? 117 : 123);
+    s += '<line x1="' + f1(x1) + '" y1="' + f1(y1) + '" x2="' + f1(x2) + '" y2="' + f1(y2) + '" stroke="var(--dial-ink)" stroke-width="' + (five ? 2.4 : .8) + '"/>';
+  }
+  for (let h = 1; h <= 12; h++){
+    const [tx,ty] = P(h*30, 97), big = h % 3 === 0;
+    s += '<text x="' + f1(tx) + '" y="' + f1(ty + (big ? 10 : 7.5)) + '" text-anchor="middle" style="font:' + (big ? '600 29px' : '500 21px') + ' var(--f-dial);fill:' + (h === 12 ? 'var(--w-green)' : 'var(--dial-ink)') + '">' + h + '</text>';
+  }
+  /* medallion above the 6 */
+  const star = (x, y, r) => { let d = ''; for (let k = 0; k < 10; k++){ const a = (k*36 - 90)*Math.PI/180, rr = k % 2 ? r*0.42 : r; d += (k ? 'L ' : 'M ') + f1(x + rr*Math.cos(a)) + ' ' + f1(y + rr*Math.sin(a)) + ' '; } return d + 'Z'; };
+  const mx = 150, my = 207;
+  let g = '<circle cx="' + mx + '" cy="' + my + '" r="16" fill="none" stroke="var(--dial-ink)" stroke-width="1"/>';
+  g += '<circle cx="' + mx + '" cy="' + my + '" r="13.6" fill="none" stroke="var(--dial-ink)" stroke-width=".45"/>';
+  for (let k = 0; k < 13; k++){ const a = (k*360/13 - 90)*Math.PI/180; g += '<path d="' + star(mx + 10.8*Math.cos(a), my + 10.8*Math.sin(a), 1.5) + '" fill="var(--dial-ink)"/>'; }
+  g += '<circle cx="' + mx + '" cy="' + my + '" r="6.6" fill="none" stroke="var(--dial-ink)" stroke-width=".9"/>';
+  for (let k = 0; k < 24; k++){ const a = k*15*Math.PI/180; g += '<line x1="' + f1(mx + 1.6*Math.cos(a)) + '" y1="' + f1(my + 1.6*Math.sin(a)) + '" x2="' + f1(mx + 6.3*Math.cos(a)) + '" y2="' + f1(my + 6.3*Math.sin(a)) + '" stroke="var(--dial-ink)" stroke-width=".35"/>'; }
+  g += '<circle cx="' + mx + '" cy="' + my + '" r="1.5" fill="var(--dial-ink)"/>';
+  s += '<g opacity=".85">' + g + '</g>';
+  /* GMT-style hand: where the clock stood a month ago */
+  const prevLeft = minsLeft(at(asOf - 30).sc);
+  if (prevLeft !== left){
+    const gDeg = (60 - prevLeft)*6, flip = gDeg > 180;
+    s += '<g transform="rotate(' + gDeg.toFixed(2) + ' 150 150)">' +
+         '<line x1="150" y1="162" x2="150" y2="34" stroke="var(--gmt)" stroke-width="2" stroke-linecap="round"/>' +
+         '<text x="' + (flip ? 155.5 : 144.5) + '" y="104" transform="rotate(' + (flip ? 90 : -90) + ' ' + (flip ? 155.5 : 144.5) + ' 104)" text-anchor="middle" dominant-baseline="middle" style="font:700 6.4px var(--f-mono);fill:var(--gmt-ink);letter-spacing:1px;paint-order:stroke;stroke:var(--dial);stroke-width:3px">1 MONTH AGO</text></g>';
+  }
+  s += '<g transform="rotate(' + hDeg.toFixed(2) + ' 150 150)"><path d="M 145.5 166 L 145.5 82 L 150 68 L 154.5 82 L 154.5 166 Z" fill="var(--w-hand)"/><path d="M 148.2 140 L 148.2 84 L 150 78 L 151.8 84 L 151.8 140 Z" fill="var(--lume)"/></g>';
+  s += '<g transform="rotate(' + mDeg.toFixed(2) + ' 150 150)"><path d="M 147.2 170 L 147.2 40 L 150 27 L 152.8 40 L 152.8 170 Z" fill="var(--w-hand)"/><path d="M 148.8 132 L 148.8 43 L 150 37 L 151.2 43 L 151.2 132 Z" fill="var(--lume)"/></g>';
+  s += '<circle cx="150" cy="150" r="6.5" fill="var(--w-hand)"/><circle cx="150" cy="150" r="2.2" fill="var(--gmt)"/>';
+  s += '</svg>';
+  const el = document.getElementById('watch'); el.innerHTML = s;
+  el.setAttribute('aria-label', 'Watch reading ' + clockTime(now.sc) + ', ' + left + ' minutes to midnight' + (prevLeft !== left ? '; a month ago it read ' + prevLeft + ' minutes' : ''));
+})();
+
+/* Latest inputs */
+const items = [];
+m.signals.forEach(s => items.push({d:DAY(s.date), tag:'Intent', dir:s.score, text:'<b>' + esc(s.who) + ':</b> ' + esc(s.text), src:s.src}));
+m.stages.forEach(s => items.push({d:DAY(s.date), tag:'Progress', dir:1, text:esc(s.label), src:s.src}));
+m.engagements.forEach(e => items.push({d:DAY(e.date), tag:'Intent', dir:1, text:esc(e.label), src:e.src}));
+m.targets.forEach(t => items.push({d:DAY(t.due)+1, tag:'Intent', dir:-1, text:'Official signing date missed: ' + esc(t.label), src:t.src}));
+m.blockers.forEach(b => { items.push({d:DAY(b.start), tag:'Obstacle', dir:-1, text:'New: ' + esc(b.name), src:b.src}); if (b.end) items.push({d:DAY(b.end), tag:'Obstacle', dir:1, text:'Resolved: ' + esc(b.name), src:b.src}); });
+const recent = items.filter(x => x.d <= asOf && x.d > asOf-30).sort((a,b) => b.d - a.d || b.dir - a.dir).slice(0, 10);
+document.getElementById('inputs').innerHTML = recent.map(x => {
+  const c = x.dir > 0 ? 'pos' : x.dir < 0 ? 'neg' : 'neu', g = x.dir > 0 ? '+' : x.dir < 0 ? '−' : '·';
+  return '<li><span class="d">' + fmtS(x.d) + '</span><span class="dir ' + c + '" aria-label="' + (x.dir>0?'toward signing':x.dir<0?'away from signing':'neutral') + '">' + g + '</span><span class="t"><span class="tag">' + x.tag + '</span>' + x.text + (x.src ? ' <a href="' + esc(x.src) + '" target="_blank" rel="noopener">Source</a>' : '') + '</span></li>';
+}).join('');
+
+/* Factors */
+const stageNow = m.stages.filter(s => DAY(s.date) <= asOf).pop();
+const F = [
+  {k:'progress', name:'Progress', v:now.P, why:'Current stage: ' + stageNow.label.toLowerCase() + ' (since ' + fmt(DAY(stageNow.date)) + '). Signing is 100%.'},
+  {k:'obstacles', name:'Obstacles', v:now.O, why: now.active.length ? '100% minus live obstacles: ' + now.active.map(b => b.name.replace(/^[^:]*:\s*/, '').replace(/\s*\(.*\)$/, '') + ' (−' + b.severity + ')').join('; ') + '.' : 'No live obstacles.'},
+  {k:'intent', name:'Intent', v:now.I, why: 'Recent tone of what both sides say and do: ' + (now.tone>=0?'+':'') + now.tone.toFixed(2) + ' on a −2 to +2 scale, from ' + now.recent + ' statements, meetings and missed dates in the last 60 days. Recent events count most.'}
+];
+document.getElementById('factors').innerHTML = F.map(f =>
+  '<div class="factor"><div class="name">' + f.name + '<span>weight ' + W[f.k] + '%</span></div>' +
+  '<div class="bar" role="img" aria-label="' + f.name + ' ' + Math.round(f.v) + ' percent"><i style="width:' + f.v + '%"></i></div>' +
+  '<div class="score num">' + Math.round(f.v) + '% <span>× ' + W[f.k] + '% = ' + (W[f.k]*f.v/100).toFixed(1) + '</span></div><div class="why">' + esc(f.why) + '</div></div>'
+).join('') +
+'<div class="total"><div class="main"><span>Estimate</span><span class="num">' + now.sc.toFixed(1) + '% · ' + left + ' min to midnight</span></div></div>';
+
+/* History chart: full width, no side scrolling */
+const evs = m.keyEvents.map((e,i) => ({...e, n:i+1, d:DAY(e.date)}));
+const box = document.getElementById('chartbox'), tip = document.getElementById('tip');
+const defaultTip = 'Today: estimate ' + now.sc.toFixed(1) + '%, clock ' + clockTime(now.sc) + ', ' + Math.round(pWithin(now.sc,90)*100) + '% chance within 90 days.';
+tip.textContent = defaultTip;
+function drawChart(){
+  const Wd = Math.max(320, Math.round(box.clientWidth - 8));
+  const narrow = Wd < 560;
+  const L = narrow ? 34 : 42, R = narrow ? 50 : 62, T = 14, plotH = narrow ? 190 : 250;
+  const X = d => L + (d - start)/(asOf - start)*(Wd - L - R);
+  const Y = v => T + (1 - v/100)*plotH;
+  /* event markers on lanes under the plot, never overlapping */
+  const rM = narrow ? 8 : 9, laneH = rM*2 + 6, lanes = [];
+  evs.forEach(e => { e.x = X(e.d); let k = 0; while (lanes[k] !== undefined && e.x - lanes[k] < rM*2 + 3) k++; lanes[k] = e.x; e.lane = k; });
+  const laneTop = T + plotH + 30, Ht = laneTop + lanes.length*laneH + 4;
+  let s = '<svg id="hist" viewBox="0 0 ' + Wd + ' ' + Ht + '" role="img" aria-label="Estimate and clock time from February 2025 to ' + fmt(asOf) + '">';
+  [0,25,50,75,100].forEach(v => {
+    s += '<line x1="' + L + '" x2="' + (Wd-R) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="' + (v === 100 ? 'var(--green)' : 'var(--line)') + '"' + (v === 100 ? ' stroke-dasharray="4 4"' : '') + '/>';
+    s += '<text x="' + (L-6) + '" y="' + (Y(v)+3.5) + '" text-anchor="end" font-size="10">' + v + '%</text>';
+    s += '<text x="' + (Wd-R+6) + '" y="' + (Y(v)+3.5) + '" font-size="10"' + (v === 100 ? ' style="fill:var(--green)"' : '') + '>' + ({0:'11:00',25:'11:15',50:'11:30',75:'11:45',100:'midnight'})[v] + '</text>';
+  });
+  for (let y = 2025; y <= 2027; y++) for (let mo = 0; mo < 12; mo += (narrow ? 6 : 3)){
+    const d = Math.round(Date.UTC(y, mo, 1)/864e5); if (d < start || d > asOf) continue;
+    s += '<line x1="' + X(d) + '" x2="' + X(d) + '" y1="' + (T+plotH) + '" y2="' + (T+plotH+5) + '" stroke="var(--muted)"/>';
+    s += '<text x="' + X(d) + '" y="' + (T+plotH+18) + '" text-anchor="middle" font-size="10">' + MON[mo] + ' ' + String(y).slice(2) + '</text>';
+  }
+  let line = '', area = 'M ' + X(start) + ' ' + Y(0);
+  series.forEach((p,i) => { const pt = X(p.d).toFixed(1) + ' ' + Y(p.sc).toFixed(1); line += (i ? ' L ' : 'M ') + pt; area += ' L ' + pt; });
+  area += ' L ' + X(asOf) + ' ' + Y(0) + ' Z';
+  s += '<path d="' + area + '" fill="var(--navy-tint)"/><path d="' + line + '" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linejoin="round"/>';
+  evs.forEach(e => {
+    const p = at(e.d), b = at(e.d-7), dm = p.sc - b.sc;
+    e.cls = dm > 0.05 ? 'pos' : dm < -0.05 ? 'neg' : 'neu';
+    const col = e.cls === 'pos' ? 'var(--green)' : e.cls === 'neg' ? 'var(--red)' : 'var(--muted)';
+    const cy = laneTop + e.lane*laneH + rM;
+    s += '<line x1="' + e.x.toFixed(1) + '" x2="' + e.x.toFixed(1) + '" y1="' + Y(p.sc).toFixed(1) + '" y2="' + (cy - rM) + '" stroke="' + col + '" stroke-opacity=".35"/>';
+    s += '<circle cx="' + e.x.toFixed(1) + '" cy="' + Y(p.sc).toFixed(1) + '" r="2.8" fill="' + col + '"/>';
+    s += '<g class="mk" data-n="' + e.n + '" style="cursor:pointer"><circle cx="' + e.x.toFixed(1) + '" cy="' + cy + '" r="' + rM + '" fill="var(--surface)" stroke="' + col + '" stroke-width="2"/>' +
+         '<text x="' + e.x.toFixed(1) + '" y="' + (cy+3.4) + '" text-anchor="middle" font-size="' + (narrow ? 8.5 : 9.5) + '" style="fill:var(--ink);font-weight:600">' + e.n + '</text></g>';
+  });
+  s += '<line id="cur" x1="0" x2="0" y1="' + T + '" y2="' + (T+plotH) + '" stroke="var(--saffron)" stroke-width="1.5" opacity="0"/>';
+  s += '<circle cx="' + X(asOf) + '" cy="' + Y(now.sc) + '" r="4.5" fill="var(--saffron)"/>';
+  s += '<rect id="hit" x="' + L + '" y="' + T + '" width="' + (Wd-L-R) + '" height="' + plotH + '" fill="transparent"/>';
+  s += '</svg>';
+  box.innerHTML = s;
+  const svg = document.getElementById('hist'), cur = document.getElementById('cur'), hit = document.getElementById('hit');
+  const show = ev => {
+    const r = svg.getBoundingClientRect(), x = (ev.clientX - r.left)/r.width*Wd;
+    const d = Math.round(start + (x - L)/(Wd - L - R)*(asOf - start)); if (d < start || d > asOf) return;
+    const p = at(d); cur.setAttribute('x1', X(d)); cur.setAttribute('x2', X(d)); cur.setAttribute('opacity', 1);
+    tip.textContent = fmt(d) + ': estimate ' + p.sc.toFixed(1) + '%, clock ' + clockTime(p.sc) + ', ' + Math.round(pWithin(p.sc,90)*100) + '% chance within 90 days.';
+  };
+  hit.addEventListener('pointermove', show); hit.addEventListener('pointerdown', show);
+  hit.addEventListener('pointerleave', () => { cur.setAttribute('opacity', 0); tip.textContent = defaultTip; });
+  svg.querySelectorAll('.mk').forEach(g => g.addEventListener('click', () => focusEvent(+g.dataset.n, true)));
+}
+
+/* Event list, newest first */
+const list = document.getElementById('events');
+evs.forEach(e => { const p = at(e.d), b = at(e.d-7); e.cls = p.sc - b.sc > 0.05 ? 'pos' : p.sc - b.sc < -0.05 ? 'neg' : 'neu'; });
+list.innerHTML = evs.slice().reverse().map(e => {
+  const p = at(e.d), b = at(e.d-7), dm = minsLeft(b.sc) - minsLeft(p.sc);
+  const delta = dm === 0 ? 'no change' : (dm > 0 ? '▲ ' + hm(dm) + ' closer' : '▼ ' + hm(-dm) + ' further');
+  return '<li id="ev' + e.n + '" data-n="' + e.n + '" tabindex="0"><span class="badge ' + e.cls + '">' + e.n + '</span><div class="body"><span class="when">' + fmt(e.d) + '</span><h3>' + esc(e.title) + '</h3><p>' + esc(e.text) + ' <a href="' + esc(e.src) + '" target="_blank" rel="noopener">Source</a></p></div>' +
+         '<div class="val num">' + clockTime(p.sc) + '<small class="' + e.cls + '">' + delta + '</small><small class="neu">estimate ' + Math.round(p.sc) + '%</small></div></li>';
+}).join('');
+function focusEvent(n, scroll){
+  list.querySelectorAll('li').forEach(li => li.classList.toggle('on', +li.dataset.n === n));
+  const li = document.getElementById('ev' + n);
+  if (scroll && li) list.scrollTo({top: li.offsetTop - list.offsetTop - 8, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+  const e = evs[n-1], p = at(e.d);
+  tip.textContent = n + '. ' + e.title + ' (' + fmt(e.d) + '): estimate ' + p.sc.toFixed(1) + '%, clock ' + clockTime(p.sc) + '.';
+}
+list.querySelectorAll('li').forEach(li => {
+  li.addEventListener('click', ev => { if (ev.target.tagName !== 'A') focusEvent(+li.dataset.n, false); });
+  li.addEventListener('keydown', ev => { if (ev.key === 'Enter') focusEvent(+li.dataset.n, false); });
+});
+let lastW = 0;
+const relayout = () => { const w = box.clientWidth; if (w === lastW) return; lastW = w; drawChart(); };
+relayout();
+if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(box); else addEventListener('resize', relayout);
+
+/* Method */
+const rows = [
+  ['Progress', W.progress, 'Stage reached: 10 talks launched · 20 scope agreed · 30 negotiating rounds · 60 framework agreed · 75 text almost final · 85 text in legal review · 95 signing date fixed · 100 signed.'],
+  ['Obstacles', W.obstacles, '100% minus each live obstacle: 40 talks suspended · 25 punitive measure, dated threat or legal basis struck down · 15 core issue or pending review · 5 side irritant.'],
+  ['Intent', W.intent, 'Recent tone of what both sides say and do. Statements score −2 (hostile) to +2 (signing announced), taken at face value; meetings +1; postponed rounds −1; missed signing dates −2. Each event\u2019s weight halves every 30 days, and silence drifts back to neutral.']
+];
+document.getElementById('methodTable').innerHTML = rows.map(r => '<tr><td><b>' + r[0] + '</b></td><td>' + r[1] + '%</td><td>' + r[2] + '</td></tr>').join('');
+document.getElementById('scale').innerHTML = '<span class="chip" style="background:none;padding-left:0;color:var(--muted)">Estimate → 90-day chance:</span>' + [50,60,70,80,90].map(v => '<span class="chip">' + v + '% → ' + Math.round(p90(v)*100) + '%</span>').join('');
+})();
+</script>
+
+</body>
+</html>
