@@ -22,7 +22,7 @@ The owner's instruction: rely predominantly on primary or tier 1 sources, so the
 - For an official statement, action, document or date, link the **primary** source when one exists; otherwise the tier 1 report.
 - Use any other outlet only if no primary or tier 1 source covers the item **and** it is an official's on-record statement quoted directly. Never use another outlet as the only basis for an obstacle, stage, target or key event.
 - Never use aggregators, blogs, brokerage or market-tips sites, law-firm or consultancy notes, or outlets re-reporting second hand.
-- **Completeness:** search these sources systematically (WebSearch with `allowed_domains` set to groups of the domains above, plus the official press-release pages on both sides), not just a general web search. Check the official readouts of any meeting or call you add.
+- **Completeness:** search these sources systematically, not just with one general web search. Run several searches per topic naming the outlets or official sites (e.g. "site:pib.gov.in", "site:ustr.gov", "Reuters", "Business Standard"); WebSearch's `allowed_domains` filter can also be used, but if it errors, fall back to plain searches and keep only results from the lists above. Check the official readouts of any meeting or call you add.
 - Never invent or guess a URL. Only use URLs seen in search results or fetched pages.
 
 ## Steps
